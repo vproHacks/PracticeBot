@@ -20,14 +20,10 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveSubsystem extends SubsystemBase {
-    private WPI_TalonSRX leftFront;
-    private WPI_TalonSRX leftBack;
-    private SpeedControllerGroup left;
-    private WPI_TalonSRX rightFront;
-    private WPI_TalonSRX rightBack;
-    private SpeedControllerGroup right;
+    private WPI_TalonSRX leftFront, leftBack, rightFront, rightBack;
+    private SpeedControllerGroup left, right, falcons;
     private DifferentialDrive drive;
-    private WPI_TalonFX falcon;
+    private WPI_TalonFX falcon1, falcon2;
 
     
     public DriveSubsystem() {
@@ -35,10 +31,12 @@ public class DriveSubsystem extends SubsystemBase {
         leftBack = new WPI_TalonSRX(Constants.leftBackCAN);
         rightFront = new WPI_TalonSRX(Constants.rightFrontCAN);
         rightBack = new WPI_TalonSRX(Constants.rightBackCAN);
-        falcon = new WPI_TalonFX(Constants.falconCAN);
+        falcon1 = new WPI_TalonFX(Constants.falcon1CAN);
+        falcon2 = new WPI_TalonFX(Constants.falcon2CAN);
 
-        SpeedControllerGroup left = new SpeedControllerGroup(leftFront, leftBack);
-        SpeedControllerGroup right = new SpeedControllerGroup(rightFront, rightBack);
+        left = new SpeedControllerGroup(leftFront, leftBack);
+        right = new SpeedControllerGroup(rightFront, rightBack);
+        falcons = new SpeedControllerGroup(falcon1, falcon2);
         drive = new DifferentialDrive(left, right);
         drive.setSafetyEnabled(true);
         drive.setExpiration(0.1);
@@ -74,9 +72,8 @@ public class DriveSubsystem extends SubsystemBase {
         drive.feed();
     }
 
-    public void setFalcon(double speed) {
-        falcon.set(speed);
-        falcon.feed();
+    public void setFalcons(double speed) {
+        falcons.set(speed);
     }
 
     public void stop() {

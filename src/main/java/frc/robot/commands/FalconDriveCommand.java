@@ -39,7 +39,7 @@ public class FalconDriveCommand extends CommandBase {
         double leftTrigger = controller.getTriggerAxis(Hand.kLeft);
         double rightTrigger = controller.getTriggerAxis(Hand.kRight);
 
-        m_driveSubsystem.setFalcon(rightTrigger - leftTrigger);
+        m_driveSubsystem.setFalcons(leftTrigger - rightTrigger);
         m_driveSubsystem.tankDrive(leftSpeed, rightSpeed);
 	}
 
